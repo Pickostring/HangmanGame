@@ -16,6 +16,7 @@ public class Game {
             Dictionary.fillDict();
             String word = Dictionary.getRandomWord();
             int errors = 0;
+            int unknownCharacters = 0;
             boolean start = true;
 
             ArrayList<String> knownCharsList = new ArrayList<>();
@@ -71,16 +72,10 @@ public class Game {
                         ));
                         break;
                 }
-
-                for (int i = 0; i < fullWordList.size(); i++) {
-                    for (int j = 0; j < knownCharsList.size(); j++) {
-                        if (knownCharsList.contains(fullWordList.get(i))) {
-                            System.out.print(fullWordList.get(i));
-                            break;
-                        } else {
-                            if (j == knownCharsList.size() - 1) System.out.print("_");
-                        }
-                    }
+//                <!--Check win condition--->
+                if (printWordState(fullWordList, knownCharsList)) {
+                    System.out.println("\nYou win!");
+                    break;
                 }
 
                 System.out.println();
@@ -110,9 +105,22 @@ public class Game {
             scanner.nextLine();
 
         }
-
-
-
-
     }
+
+    public static boolean printWordState(ArrayList<String> fullWordList, ArrayList<String> knownCharsList) {
+        int correctCount = 0;
+        for (int i = 0; i < fullWordList.size(); i++) {
+            for (int j = 0; j < knownCharsList.size(); j++) {
+                if (knownCharsList.contains(fullWordList.get(i))) {
+                    System.out.print(fullWordList.get(i));
+                    correctCount++;
+                    break;
+                } else {
+                    if (j == knownCharsList.size() - 1) System.out.print("_");
+                }
+            }
+        }
+        return fullWordList.size() == correctCount;
+    }
+
 }

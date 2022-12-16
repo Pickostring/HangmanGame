@@ -11,9 +11,9 @@ public class Dictionary {
     public static void fillDict() throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/resources/Words.txt"));
         String line = reader.readLine();
-        while(line != null) {
+        while (line != null) {
             String[] wordsLine = line.split(" ");
-            for(String word : wordsLine) {
+            for (String word : wordsLine) {
                 words.add(word);
             }
             line = reader.readLine();
